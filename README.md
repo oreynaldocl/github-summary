@@ -25,3 +25,45 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Installations steps
+
+## Creation
+```
+ng new config-app --style=scss --skip-install
+ng set --global packageManager=yarn
+yarn install
+```
+
+## Bootstrap files
+Install the following library
+```
+$ yarn add --save bootstrap@4.1.1
+```
+
+Create the following files
+```
+|- src/
+    |- ssss/
+        |- _variables.scss
+        |- _mixins.scss
+        |- _styles.scss
+```
+Add following lines in `src/styles.scss`
+```
+// BOOTSTRAP CSS
+@import "~bootstrap/dist/css/bootstrap.css";
+
+// CUSTOM SCSS
+@import './scss/variables';
+@import './scss/mixins';
+@import './scss/styles';
+
+// COMPONENTS SCSS
+```
+## Ng Bootstrap files
+```
+$ yarn add @ng-bootstrap/ng-bootstrap@1.1.2
+```
+## Install tslint configuration
+Follow steps of https://gist.github.com/stas-kh/2fc80c11c6db0fc4c64354400e29a2b8

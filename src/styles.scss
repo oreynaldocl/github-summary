@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+// BOOTSTRAP CSS
+@import "~bootstrap/dist/css/bootstrap.css";
+
+// CUSTOM SCSS
+@import './scss/variables';
+@import './scss/mixins';
+@import './scss/styles';
+
+// COMPONENTS SCSS

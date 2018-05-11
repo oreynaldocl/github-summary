@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('config-app App', () => {
+describe('github-summary App', () => {
   let page: AppPage;
 
   beforeEach(() => {

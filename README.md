@@ -65,3 +65,5 @@ Add following lines in `src/styles.scss`
 ```
 $ yarn add @ng-bootstrap/ng-bootstrap@1.1.2
 ```
+## Install tslint configuration
+Follow steps of https://gist.github.com/stas-kh/2fc80c11c6db0fc4c64354400e29a2b8

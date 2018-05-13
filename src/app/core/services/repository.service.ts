@@ -18,19 +18,21 @@ export class RepositoryService {
     const url = `${this.baseApi}/users/${user}/repos?per_page=4&page=${page}`;
     return this.http.get<Repository[]>(url, { observe: 'response' }).pipe(
       map((response: HttpResponse<any>) => {
-        return response.body.map(item => {
-          const { html_url, name, description, open_issues, forks } = item;
-          const repository: Repository = {
-            repoUrl: html_url,
-            name,
-            description,
-            issues: +open_issues + 0,
-            openIssues: +open_issues,
-            forks,
-          };
-          return repository;
-        });
+        return response.body.map(this.mapRepository);
       })
     );
+  }
+
+  private mapRepository(responseRepository: any): Repository {
+    const { html_url, name, description, open_issues, forks } = responseRepository;
+    const repository: Repository = {
+      repoUrl: html_url,
+      name,
+      description,
+      issues: +open_issues + 0,
+      openIssues: +open_issues,
+      forks,
+    };
+    return repository;
   }
 }

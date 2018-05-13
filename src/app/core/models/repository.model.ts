@@ -6,3 +6,12 @@ export interface Repository {
   openIssues: number;
   forks: number;
 }
+
+export interface Metadata {
+  size: number;
+}
+
+export interface RepositoryList {
+  metadata: Metadata;
+  repositories: Repository[];
+}

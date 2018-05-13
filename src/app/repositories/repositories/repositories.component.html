@@ -1,3 +1,51 @@
-<p>
-  PLACEHOLDER {{userName}}
-</p>
+<div class="container">
+  <h2>Repository List of {{userName}}</h2>
+  <table class="table">
+    <tbody>
+      <div class="row tr">
+
+        <ng-template ngFor let-repo [ngForOf]="repositories">
+          <div class="col-6 col-md-3 td">
+            <div class="card text-center">
+              <div class="card-header bg-transparent"><a href="{{repo.repoUrl}}" target="_blank" class="card-title font-weight-bold">{{repo.name}}</a></div>
+              <div class="card-body">
+                <p class="card-text">{{repo.description}}</p>
+              </div>
+              <div class="card-footer bg-transparent d-flex flex-column flex-md-row">
+                <div class="gs-stat-item">
+                  <div class="gs-stat-item__number">{{repo.issues}}</div>
+                  <div class="gs-stat-item__text">
+                    Issues
+                  </div>
+                </div>
+                <div>
+                  <div class="gs-stat-item__number">{{repo.openIssues}}</div>
+                  <div class="gs-stat-item__text">
+                    Open Issues
+                  </div>
+                </div>
+                <div>
+                  <div class="gs-stat-item__number">{{repo.forks}}</div>
+                  <div class="gs-stat-item__text">
+                    Rorks
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div *ngIf="pagination.enabled" class="row tr pt-3">
+        <div class="col-12 td text-center">
+          <ngb-pagination class="d-flex justify-content-center"
+            [rotate]="true" [boundaryLinks]="true"
+            [collectionSize]="pagination.size"
+            [pageSize]="pagination.pageSize"
+            [(page)]="pagination.page"
+            (pageChange)="onPaginate()"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </tbody>
+  </table>
+</div>

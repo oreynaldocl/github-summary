@@ -17,10 +17,9 @@ import { AppComponent } from './app.component';
     NgbModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
-  ],
-  providers: [
     CoreModule,
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

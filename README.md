@@ -30,15 +30,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Creation
 ```
-ng new github-summary --style=scss --skip-install
-ng set --global packageManager=yarn
-yarn install
+ng new github-summary --style=scss
 ```
 
 ## Bootstrap files
 Install the following library
 ```
-$ yarn add --save bootstrap@4.1.1
+$ npm install --save bootstrap@4.1.1
 ```
 
 Create the following files
@@ -63,7 +61,7 @@ Add following lines in `src/styles.scss`
 ```
 ## Ng Bootstrap files
 ```
-$ yarn add @ng-bootstrap/ng-bootstrap@1.1.2
+$ npm install @ng-bootstrap/ng-bootstrap@1.1.2
 ```
 ## Install tslint configuration
 Follow steps of https://gist.github.com/stas-kh/2fc80c11c6db0fc4c64354400e29a2b8

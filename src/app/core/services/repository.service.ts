@@ -4,21 +4,31 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 
-import { Repository } from '../models';
+import { Repository, RepositoryList } from '../models';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class RepositoryService {
   baseApi = 'https://api.github.com';
+  pageSize = 4;
 
   constructor(
     private http: HttpClient,
+    private utilsService: UtilsService,
   ) { }
 
-  getRepositories(user: string, page = 1): Observable<Repository[]> {
-    const url = `${this.baseApi}/users/${user}/repos?per_page=4&page=${page}`;
-    return this.http.get<Repository[]>(url, { observe: 'response' }).pipe(
+  getRepositories(user: string, page = 1): Observable<RepositoryList> {
+    const url = `${this.baseApi}/users/${user}/repos?per_page=${this.pageSize}&page=${page}`;
+    return this.http.get<RepositoryList>(url, { observe: 'response' }).pipe(
       map((response: HttpResponse<any>) => {
-        return response.body.map(this.mapRepository);
+        const repositories = response.body.map(this.mapRepository);
+        const last = this.utilsService.getLastPage(response.headers.get('Link'));
+        return {
+          metadata: {
+            size: last * this.pageSize,
+          },
+          repositories,
+        };
       })
     );
   }

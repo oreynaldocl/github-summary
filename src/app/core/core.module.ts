@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UserService, RepositoryService } from './services';
+import { UserService, RepositoryService, UtilsService } from './services';
 
 @NgModule({
   imports: [
@@ -10,6 +10,7 @@ import { UserService, RepositoryService } from './services';
   providers: [
     UserService,
     RepositoryService,
+    UtilsService,
   ],
   declarations: [],
 })

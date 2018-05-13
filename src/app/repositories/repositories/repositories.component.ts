@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { RepositoryService } from '../../core/services';
-import { Repository, Pagination } from '../../core/models';
+import { Repository, Pagination, RepositoryList } from '../../core/models';
 
 @Component({
   selector: 'gs-repositories',
@@ -34,8 +34,10 @@ export class RepositoriesComponent implements OnInit {
     const { userName } = this;
     const page = this.pagination.page;
     this.repoServices.getRepositories(userName, page).subscribe(
-      (repositories: Repository[]) => {
-        this.repositories = repositories;
+      (list: RepositoryList) => {
+        this.pagination.size = list.metadata.size;
+        this.pagination.enabled = list.metadata.size > this.pagination.pageSize;
+        this.repositories = list.repositories;
       }
     );
   }

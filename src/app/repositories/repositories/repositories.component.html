@@ -27,7 +27,7 @@
                 <div>
                   <div class="gs-stat-item__number">{{repo.forks}}</div>
                   <div class="gs-stat-item__text">
-                    Rorks
+                    Forks
                   </div>
                 </div>
               </div>
@@ -38,7 +38,7 @@
       <div *ngIf="pagination.enabled" class="row tr pt-3">
         <div class="col-12 td text-center">
           <ngb-pagination class="d-flex justify-content-center"
-            [rotate]="true" [boundaryLinks]="true"
+            [rotate]="true" [boundaryLinks]="true" [maxSize]="5"
             [collectionSize]="pagination.size"
             [pageSize]="pagination.pageSize"
             [(page)]="pagination.page"

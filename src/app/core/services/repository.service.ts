@@ -32,7 +32,7 @@ export class RepositoryService {
       map(([response, ...counts]: [HttpResponse<any>, number[]]) => {
         const repositories = response.body.map(this.mapRepository);
         repositories.forEach((repo: Repository, index) => {
-          repo.openIssues = repo.issues - +counts[index];
+          repo.openIssues = repo.issues - (+counts[index]);
         });
         const last = this.utilsService.getLastPage(response.headers.get('Link'));
         return {
@@ -55,7 +55,11 @@ export class RepositoryService {
     const url = `${this.baseApi}/repos/${owner}/${repo}/pulls?per_page=1`;
     return this.http.get<number>(url, { observe: 'response' }).pipe(
       map((response: HttpResponse<any>) => {
-        return this.utilsService.getLastPage(response.headers.get('Link'));
+        let lastPage = this.utilsService.getLastPage(response.headers.get('Link'));
+        if (lastPage === 0 && response.body && response.body.length === 1) {
+          lastPage = 1;
+        }
+        return lastPage;
       })
     );
   }

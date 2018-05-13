@@ -1,25 +1,9 @@
 <div class="container">
   <h2>User List</h2>
-  <table class="table">
+  <table class="table gs-users">
     <tbody>
-      <div class="row tr">
-
-        <ng-template ngFor let-user [ngForOf]="users">
-          <div class="col-6 col-md-3 td">
-            <div class="card text-center">
-              <img class="card-img-top" src="{{user.avatarUrl}}" alt="User avatar">
-              <div class="card-body">
-                <div class="card-title font-weight-bold">{{user.userName}}</div>
-                <div class="card-text">
-                  <a href="{{user.pageUrl}}" target="_blank" class="card-link">Github</a>
-                  <a routerLink="/repos/{{user.userName}}" class="card-link">Repos</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </div>
-      <div class="row tr">
+      <gs-user-list [users]="users"></gs-user-list>
+      <div class="row tr pt-2">
         <div class="col-12 td  text-center">
           <button type="button" class="btn btn-primary" (click)="loadMoreUsers();">Load more</button>
         </div>

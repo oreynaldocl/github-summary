@@ -5,11 +5,16 @@ export class UtilsService {
 
   constructor() { }
 
-  getLastPage(linksParam: string): number {
-    if (!linksParam) {
+  /**
+   * Returns value of last page based on link header.
+   * @param {string} linkHeader - Link header of responser header.
+   * @returns {number} 0 if page is not found in last link of header.
+   */
+  getLastPage(linkHeader: string): number {
+    if (!linkHeader) {
       return 0;
     }
-    const links = linksParam.split(', ');
+    const links = linkHeader.split(', ');
     const last = links.find(item => item.indexOf('"last"') >= 0);
     if (!last) {
       return 0;
@@ -23,6 +28,9 @@ export class UtilsService {
   }
 
   getQueryParam(url: string, paramName: string): string {
+    if (!url || !paramName) {
+      return '';
+    }
     const [, query = ''] = url.split('?');
     const param = query.split('&').find(item => item.indexOf(paramName) === 0);
     return param;

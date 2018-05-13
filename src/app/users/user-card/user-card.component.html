@@ -1,0 +1,21 @@
+<div class="card text-center">
+  <img *ngIf="user.avatarUrl; else notAvatar" class="card-img-top" src="{{user.avatarUrl}}" alt="User avatar">
+  <div class="card-body">
+    <div class="card-title font-weight-bold">{{user.userName}}</div>
+    <div class="card-text  d-flex flex-column flex-md-row justify-content-between">
+      <a href="{{user.pageUrl}}" target="_blank" >
+        <i class="fab fa-github"></i>
+        Github
+      </a>
+      <a tabindex="0" class="clickable" (click)="goLocalRepo()" >Repos</a>
+    </div>
+  </div>
+</div>
+
+<ng-template #notAvatar>
+  <div class="gs-not-avatar">
+    <div>
+      Not avatar found
+    </div>
+  </div>
+</ng-template>

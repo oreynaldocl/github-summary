@@ -1,13 +1,14 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UserService, RepositoryService, UtilsService } from './services';
+import { UserService, RepositoryService, UtilsService, BASE_API_TOKEN } from './services';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   providers: [
+    { provide: BASE_API_TOKEN, useValue: 'https://api.github.com' },
     UserService,
     RepositoryService,
     UtilsService,

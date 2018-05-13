@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 
+import { BASE_API_TOKEN } from './base-api-token';
 import { User } from '../models';
 
 @Injectable()
 export class UserService {
-  baseApi = 'https://api.github.com';
-
   constructor(
     private http: HttpClient,
+    @Inject(BASE_API_TOKEN) private baseApi: string
   ) { }
 
   getUsers(since: string): Observable<User[]> {

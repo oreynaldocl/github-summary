@@ -1,35 +1,50 @@
 <div class="container">
   <h2>
-    Repository List of {{userName}}
+    Repository List of <b>{{userName}}</b>
+    <i *ngIf="loading" class="fa fa-spinner fa-pulse loading-icon"></i>
   </h2>
-  <table class="table">
+  <table class="table gs-repositories">
     <tbody>
       <div class="row tr">
 
         <ng-template ngFor let-repo [ngForOf]="repositories">
-          <div class="col-6 col-md-3 td">
+          <div class="col-6 col-lg-3 td">
             <div class="card text-center">
-              <div class="card-header bg-transparent"><a href="{{repo.repoUrl}}" target="_blank" class="card-title font-weight-bold">{{repo.name}}</a></div>
+              <div class="card-header bg-transparent">
+                <a href="{{repo.repoUrl}}" target="_blank" class="card-title font-weight-bold">
+                  <i class="fas fa-external-link-alt"></i>
+                  {{repo.name}}
+                </a>
+              </div>
               <div class="card-body">
                 <p class="card-text">{{repo.description}}</p>
               </div>
-              <div class="card-footer bg-transparent d-flex flex-column flex-md-row justify-content-between">
-                <div class="gs-stat-item">
-                  <div class="gs-stat-item__number">{{repo.issues}}</div>
-                  <div class="gs-stat-item__text">
-                    Issues
+              <div class="card-footer bg-transparent">
+                <div class="row no-gutters">
+                  <div class="col-12 col-md-6 col-lg-4 gs-stat-item">
+                    <div class="gs-stat-item__number">{{repo.issues}}</div>
+                    <div class="gs-stat-item__text">
+                      Issues
+                    </div>
                   </div>
-                </div>
-                <div class="gs-stat-item">
-                  <div class="gs-stat-item__number">{{repo.openIssues}}</div>
-                  <div class="gs-stat-item__text">
-                    Open Issues
+                  <div class="col-12 col-md-6 col-lg-4 gs-stat-item">
+                    <div class="gs-stat-item__number">
+                      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                      {{repo.openIssues}}
+                    </div>
+                    <div class="gs-stat-item__text">
+                      Open Issues
+                    </div>
                   </div>
-                </div>
-                <div class="gs-stat-item">
-                  <div class="gs-stat-item__number">{{repo.forks}}</div>
-                  <div class="gs-stat-item__text">
-                    Forks
+
+                  <div class="col-12 col-md-12 col-lg-4 gs-stat-item">
+                    <div class="gs-stat-item__number">
+                      <i class="fa fa-code-branch" aria-hidden="true"></i>
+                      {{repo.forks}}
+                    </div>
+                    <div class="gs-stat-item__text">
+                      Forks
+                    </div>
                   </div>
                 </div>
               </div>

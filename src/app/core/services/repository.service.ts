@@ -34,7 +34,9 @@ export class RepositoryService {
         repositories.forEach((repo: Repository, index) => {
           repo.openIssues = repo.issues - (+counts[index]);
         });
-        const last = this.utilsService.getLastPage(response.headers.get('Link'));
+        const links = response.headers.get('Link');
+        let last = this.utilsService.getLastPage(links);
+        last = this.fixValueLastPage(last, links, page);
         return {
           metadata: {
             size: last * this.pageSize,
@@ -43,6 +45,13 @@ export class RepositoryService {
         };
       })
     );
+  }
+
+  private fixValueLastPage(lastPage: number, links: string, page: number) {
+    if (lastPage === 0 && (links && links.indexOf('"first"')) >= 0) {
+      return page;
+    }
+    return lastPage;
   }
 
   private createRequests(owner: string, response: HttpResponse<any>): Observable<number>[] {

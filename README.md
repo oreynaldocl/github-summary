@@ -30,7 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Creation
 ```
-ng new config-app --style=scss --skip-install
+ng new github-summary --style=scss --skip-install
 ng set --global packageManager=yarn
 yarn install
 ```

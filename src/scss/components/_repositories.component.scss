@@ -1,0 +1,16 @@
+.gs-stat-item {
+
+  &__number {
+    font-size: $font-small;
+  }
+
+  &__text {
+    font-size: $font-small;
+  }
+}
+
+.gs-repositories {
+  .card-body {
+    min-height: 120px;
+  }
+}

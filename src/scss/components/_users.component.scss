@@ -1,0 +1,11 @@
+.gs-not-avatar {
+  display: flex;
+  min-height: 150px;
+  align-items: center;
+  font-size: 1.5em;
+  background: $black;
+  div {
+    margin: auto;
+    color: $secondary;
+  }
+}

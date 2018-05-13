@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>User List</h2>
+  <table class="table gs-users">
+    <tbody>
+      <gs-user-list [users]="users"></gs-user-list>
+      <div class="row tr pt-2">
+        <div class="col-12 td  text-center">
+          <button type="button" class="btn btn-primary" (click)="loadMoreUsers();">Load more</button>
+        </div>
+      </div>
+    </tbody>
+  </table>
+</div>

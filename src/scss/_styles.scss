@@ -1,7 +1,7 @@
-body {
-  padding-top: 80px;
+
+.truncate-text {
+  @include truncate-text();
 }
-.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
+.clickable {
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,15 +8,16 @@ import { of } from 'rxjs/observable/of';
 
 import { Repository, RepositoryList } from '../models';
 import { UtilsService } from './utils.service';
+import { BASE_API_TOKEN } from './base-api-token';
 
 @Injectable()
 export class RepositoryService {
-  baseApi = 'https://api.github.com';
   pageSize = 4;
 
   constructor(
     private http: HttpClient,
     private utilsService: UtilsService,
+    @Inject(BASE_API_TOKEN) private baseApi: string
   ) { }
 
   getRepositories(user: string, page = 1): Observable<RepositoryList> {

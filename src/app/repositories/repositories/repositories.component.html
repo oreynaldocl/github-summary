@@ -10,8 +10,8 @@
         <ng-template ngFor let-repo [ngForOf]="repositories">
           <div class="col-6 col-lg-3 td">
             <div class="card text-center">
-              <div class="card-header bg-transparent">
-                <a href="{{repo.repoUrl}}" target="_blank" class="card-title font-weight-bold">
+              <div class="card-header bg-transparent truncate-text">
+                <a href="{{repo.repoUrl}}" target="_blank" class="card-title font-weight-bold truncate-text" title="{{repo.name}}">
                   <i class="fas fa-external-link-alt"></i>
                   {{repo.name}}
                 </a>

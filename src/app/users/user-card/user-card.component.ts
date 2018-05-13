@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '../../core';
 
 @Component({
   selector: 'gs-user-card',
   templateUrl: './user-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardComponent implements OnInit {
   @Input() user: User;

@@ -12,6 +12,7 @@ export class RepositoriesComponent implements OnInit {
   userName: string;
   pagination: Pagination;
   repositories: Repository[];
+  loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,6 +20,7 @@ export class RepositoriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.pagination = { size: 20, page: 1, pageSize: 4, enabled: true };
     this.route.params.subscribe((params: Params) => {
       this.userName = params['name'];
@@ -31,6 +33,7 @@ export class RepositoriesComponent implements OnInit {
   }
 
   private loadRepositories(): void {
+    this.loading = true;
     const { userName } = this;
     const page = this.pagination.page;
     this.repoServices.getRepositories(userName, page).subscribe(
@@ -38,6 +41,9 @@ export class RepositoriesComponent implements OnInit {
         this.pagination.size = list.metadata.size;
         this.pagination.enabled = list.metadata.size > this.pagination.pageSize;
         this.repositories = list.repositories;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       }
     );
   }

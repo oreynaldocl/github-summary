@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { of } from 'rxjs/observable/of';
 
 import { Repository, RepositoryList } from '../models';
 import { UtilsService } from './utils.service';
@@ -20,8 +22,18 @@ export class RepositoryService {
   getRepositories(user: string, page = 1): Observable<RepositoryList> {
     const url = `${this.baseApi}/users/${user}/repos?per_page=${this.pageSize}&page=${page}`;
     return this.http.get<RepositoryList>(url, { observe: 'response' }).pipe(
-      map((response: HttpResponse<any>) => {
+      switchMap((response: HttpResponse<any>) => {
+        const pullCountRequests = this.createRequests(user, response);
+        return forkJoin([
+          of(response),
+          ...pullCountRequests,
+        ]);
+      }),
+      map(([response, ...counts]: [HttpResponse<any>, number[]]) => {
         const repositories = response.body.map(this.mapRepository);
+        repositories.forEach((repo: Repository, index) => {
+          repo.openIssues = repo.issues - +counts[index];
+        });
         const last = this.utilsService.getLastPage(response.headers.get('Link'));
         return {
           metadata: {
@@ -29,6 +41,21 @@ export class RepositoryService {
           },
           repositories,
         };
+      })
+    );
+  }
+
+  private createRequests(owner: string, response: HttpResponse<any>): Observable<number>[] {
+    return response.body.map(item => {
+      return this.getCountPulls(owner, item.name);
+    });
+  }
+
+  private getCountPulls(owner: string, repo: string): Observable<number> {
+    const url = `${this.baseApi}/repos/${owner}/${repo}/pulls?per_page=1`;
+    return this.http.get<number>(url, { observe: 'response' }).pipe(
+      map((response: HttpResponse<any>) => {
+        return this.utilsService.getLastPage(response.headers.get('Link'));
       })
     );
   }

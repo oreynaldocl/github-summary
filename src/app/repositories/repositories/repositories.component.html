@@ -1,5 +1,7 @@
 <div class="container">
-  <h2>Repository List of {{userName}}</h2>
+  <h2>
+    Repository List of {{userName}}
+  </h2>
   <table class="table">
     <tbody>
       <div class="row tr">
@@ -11,20 +13,20 @@
               <div class="card-body">
                 <p class="card-text">{{repo.description}}</p>
               </div>
-              <div class="card-footer bg-transparent d-flex flex-column flex-md-row">
+              <div class="card-footer bg-transparent d-flex flex-column flex-md-row justify-content-between">
                 <div class="gs-stat-item">
                   <div class="gs-stat-item__number">{{repo.issues}}</div>
                   <div class="gs-stat-item__text">
                     Issues
                   </div>
                 </div>
-                <div>
+                <div class="gs-stat-item">
                   <div class="gs-stat-item__number">{{repo.openIssues}}</div>
                   <div class="gs-stat-item__text">
                     Open Issues
                   </div>
                 </div>
-                <div>
+                <div class="gs-stat-item">
                   <div class="gs-stat-item__number">{{repo.forks}}</div>
                   <div class="gs-stat-item__text">
                     Forks

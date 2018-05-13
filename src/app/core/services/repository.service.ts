@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,15 +8,16 @@ import { of } from 'rxjs/observable/of';
 
 import { Repository, RepositoryList } from '../models';
 import { UtilsService } from './utils.service';
+import { BASE_API_TOKEN } from './base-api-token';
 
 @Injectable()
 export class RepositoryService {
-  baseApi = 'https://api.github.com';
   pageSize = 4;
 
   constructor(
     private http: HttpClient,
     private utilsService: UtilsService,
+    @Inject(BASE_API_TOKEN) private baseApi: string
   ) { }
 
   getRepositories(user: string, page = 1): Observable<RepositoryList> {
@@ -34,7 +35,9 @@ export class RepositoryService {
         repositories.forEach((repo: Repository, index) => {
           repo.openIssues = repo.issues - (+counts[index]);
         });
-        const last = this.utilsService.getLastPage(response.headers.get('Link'));
+        const links = response.headers.get('Link');
+        let last = this.utilsService.getLastPage(links);
+        last = this.fixValueLastPage(last, links, page);
         return {
           metadata: {
             size: last * this.pageSize,
@@ -43,6 +46,13 @@ export class RepositoryService {
         };
       })
     );
+  }
+
+  private fixValueLastPage(lastPage: number, links: string, page: number) {
+    if (lastPage === 0 && (links && links.indexOf('"first"')) >= 0) {
+      return page;
+    }
+    return lastPage;
   }
 
   private createRequests(owner: string, response: HttpResponse<any>): Observable<number>[] {

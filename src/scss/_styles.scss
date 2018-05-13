@@ -2,3 +2,6 @@
 .truncate-text {
   @include truncate-text();
 }
+.clickable {
+  cursor: pointer;
+}

@@ -1,0 +1,7 @@
+<div class="row tr">
+  <ng-template ngFor let-user [ngForOf]="users">
+    <div class="col-6 col-md-3 td">
+      <gs-user-card [user]="user" (onClickRepo)="goToRepo(user.userName)"></gs-user-card>
+    </div>
+  </ng-template>
+</div>

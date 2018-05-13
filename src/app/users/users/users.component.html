@@ -12,7 +12,7 @@
                 <div class="card-title font-weight-bold">{{user.userName}}</div>
                 <div class="card-text">
                   <a href="{{user.pageUrl}}" target="_blank" class="card-link">Github</a>
-                  <a class="card-link disabled">Repos</a>
+                  <a routerLink="/repos/{{user.userName}}" class="card-link">Repos</a>
                 </div>
               </div>
             </div>
